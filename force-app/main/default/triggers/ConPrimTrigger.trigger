@@ -9,7 +9,7 @@ trigger ConPrimTrigger on Contact (before insert, before update) {
         primCons.put(c.AccountId, c);
     }
     for (Contact c : Trigger.new) {
-        //validação
+        //validação de contato primário já existente
         if (c.Primary_Contact__c && primCons.containsKey(c.AccountId)) {
             c.Primary_Contact__c.addError('Já existe contato primário.');
         } else if (c.Primary_Contact__c) {
