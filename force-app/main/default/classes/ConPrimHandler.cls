@@ -2,12 +2,12 @@ public class ConPrimHandler {
     @future
     public static void updateConPhones(Set<Id> primConIds) {
         List<Contact> primCons = [SELECT Id, Phone, AccountId FROM Contact WHERE Id IN :primConIds];
-        List<Contact> RelatedContacts = [SELECT Id, Primary_Contact_Phone__c, AccountId FROM Contact WHERE AccountId IN :primConIds];
+        List<Contact> allRelatedContacts = [SELECT Id, Primary_Contact_Phone__c, AccountId FROM Contact WHERE AccountId IN :primConIds];
         List<Contact> consUpdate = new List<Contact>();
         
         for (Contact pc : primCons) {
             List<Contact> relatedContacts = new List<Contact>();
-            for (Contact c : RelatedContacts) {
+            for (Contact c : allRelatedContacts) {
                 if (c.AccountId == pc.AccountId) {
                     relatedContacts.add(c);
                 }
@@ -19,7 +19,7 @@ public class ConPrimHandler {
                 }
             }
         }
-        
+        //comentário para salvar mudanças
         if (!consUpdate.isEmpty()) {
             try {
                 update consUpdate;
