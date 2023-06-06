@@ -16,7 +16,7 @@ trigger ConPrimTrigger on Contact (before insert, before update) {
             primConIds.add(c.Id);
         }
     }
-    if (!primConIds.isEmpty()) {
+    if (primConIds.isEmpty() == false) {
         ConPrimHandler.updateConPhones(primConIds);
     }
 }
