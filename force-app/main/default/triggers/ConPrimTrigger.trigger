@@ -10,6 +10,7 @@ trigger ConPrimTrigger on Contact (before insert, before update) {
     }
     for (Contact c : Trigger.new) {
         //validação de contato primário já existente
+        //comment aleatório para conseguir reenviar pro source control
         if (c.Primary_Contact__c && primCons.containsKey(c.AccountId)) {
             c.Primary_Contact__c.addError('Já existe contato primário.');
         } else if (c.Primary_Contact__c) {
